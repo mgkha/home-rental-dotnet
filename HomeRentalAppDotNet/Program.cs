@@ -11,30 +11,30 @@ namespace HomeRentalAppDotNet
 {
     internal static class Program
     {
+
+
+        public static SQLiteConnection sqlite_conn;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        //static void Main()
-        //{
-        //    Application.EnableVisualStyles();
-        //    Application.SetCompatibleTextRenderingDefault(false);
-        //    Application.Run(new Form1());
-        //}
 
         static void Main(string[] args)
         {
+            CreateConnection();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new FormLogin());
         }
 
-        public static SQLiteConnection CreateConnection()
+        static void CreateConnection()
         {
 
-            SQLiteConnection sqlite_conn;
+
             // Create a new database connection:
-            sqlite_conn = new SQLiteConnection("Data Source=D:\\database.db; Version = 3; New = True; Compress = True; ");
+            sqlite_conn = new SQLiteConnection("Data Source=D:\\database.db; Version = 3; Compress = True;");
             // Open the connection:
             try
             {
@@ -42,9 +42,8 @@ namespace HomeRentalAppDotNet
             }
             catch (Exception)
             {
-
+                sqlite_conn.Close();
             }
-            return sqlite_conn;
         }
 
         //static void CreateTable(SQLiteConnection conn)
@@ -94,7 +93,7 @@ namespace HomeRentalAppDotNet
         //    {
         //        string myreader = sqlite_datareader.GetString(3);
         //        Debug.WriteLine(myreader);
-                
+
         //    }
         //    conn.Close();
         //}
