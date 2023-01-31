@@ -14,6 +14,7 @@ namespace HomeRentalAppDotNet
 {
     public partial class FormLogin : Form
     {
+        private int numberOfRetries = 0;
         public FormLogin()
         {
             InitializeComponent();
@@ -36,9 +37,11 @@ namespace HomeRentalAppDotNet
             sqlite_datareader.Read();
             if (sqlite_datareader.HasRows)
             {
+                int userId = sqlite_datareader.GetInt16(sqlite_datareader.GetOrdinal("id"));
                 string password = sqlite_datareader.GetString(sqlite_datareader.GetOrdinal("password"));
                 if (password.Equals(txtPassword.Text))
                 {
+                    Program.Session_UserId = userId;
                     int isAdmin = sqlite_datareader.GetInt16(sqlite_datareader.GetOrdinal("isAdmin"));
                     if (isAdmin == 1)
                     {
@@ -55,6 +58,18 @@ namespace HomeRentalAppDotNet
 
             lblPrompt.Text = "Username and password did not match";
             lblPrompt.Visible = true;
+            numberOfRetries += 1;
+
+            // delay 5 mins if the user fail to login 3 times;
+            if(numberOfRetries >= 3)
+            {
+                timer1.Interval = 5000; // (5 * 60 * 1000); // 5 mins
+                timer1.Start();
+                lblPrompt.Text = "Too much attempted! Please wait 5 min.";
+                txtUsername.ReadOnly = true;
+                txtPassword.ReadOnly = true;
+                btnLogin.Enabled = false;
+            }
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -81,6 +96,14 @@ namespace HomeRentalAppDotNet
         private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            btnLogin.Enabled = true;
+            txtUsername.ReadOnly = false;
+            txtPassword.ReadOnly = false;
+            lblPrompt.Visible = false;
         }
     }
 }

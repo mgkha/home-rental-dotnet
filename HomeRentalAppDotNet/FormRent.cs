@@ -60,7 +60,6 @@ namespace HomeRentalAppDotNet
 
         public void getOrderAppliance()
         {
-            int userId = 2;
 
             this.dataGridView2.Rows.Clear();
 
@@ -68,7 +67,7 @@ namespace HomeRentalAppDotNet
             SQLiteDataReader sqlite_datareader;
             SQLiteCommand sqlite_cmd;
             sqlite_cmd = sqlite_conn.CreateCommand();
-            sqlite_cmd.CommandText = $"select a.name , a.brand, a.model, o.rentalPeriod , o.rentalPrice  from Orders as o  left join Appliances as a on a.id = o.applianceId where o.userId = {userId};";
+            sqlite_cmd.CommandText = $"select a.name , a.brand, a.model, o.rentalPeriod , o.rentalPrice  from Orders as o  left join Appliances as a on a.id = o.applianceId where o.userId = {Program.Session_UserId};";
 
             sqlite_datareader = sqlite_cmd.ExecuteReader();
             while (sqlite_datareader.Read())
@@ -200,11 +199,24 @@ namespace HomeRentalAppDotNet
 
         private void btnClearCart_Click(object sender, EventArgs e)
         {
+            SQLiteConnection sqlite_conn = Program.sqlite_conn;
+            SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
+            sqlite_cmd.CommandText = $"DELETE FROM Orders WHERE userId = {Program.Session_UserId};";
+            int result = sqlite_cmd.ExecuteNonQuery();
+            if (result > 0)
+            {
+                MessageBox.Show("Shopping cart has been removed.");
+            }
             getOrderAppliance();
         }
 
         private void dataGridView2_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnLogin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -36,6 +37,7 @@
             this.linkRegister = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
             this.lblPrompt = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // btnLogin
@@ -122,6 +124,10 @@
             this.lblPrompt.Visible = false;
             this.lblPrompt.Click += new System.EventHandler(this.label4_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // FormLogin
             // 
             this.AcceptButton = this.btnLogin;
@@ -157,5 +163,6 @@
         private System.Windows.Forms.LinkLabel linkRegister;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblPrompt;
+        private System.Windows.Forms.Timer timer1;
     }
 }

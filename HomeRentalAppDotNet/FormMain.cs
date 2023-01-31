@@ -85,7 +85,27 @@ namespace HomeRentalAppDotNet
 
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            int applianceId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
 
+            SQLiteConnection sqlite_conn = Program.sqlite_conn;
+            SQLiteDataReader sqlite_datareader;
+            SQLiteCommand sqlite_cmd;
+            sqlite_cmd = sqlite_conn.CreateCommand();
+            sqlite_cmd.CommandText = $"SELECT * FROM Appliances WHERE id = {applianceId}";
+
+            sqlite_datareader = sqlite_cmd.ExecuteReader();
+            sqlite_datareader.Read();
+
+            string name = sqlite_datareader.GetString(sqlite_datareader.GetOrdinal("name"));
+            int type = sqlite_datareader.GetInt16(sqlite_datareader.GetOrdinal("applianceTypeId"));
+            string brand = sqlite_datareader.GetString(sqlite_datareader.GetOrdinal("brand"));
+            string model = sqlite_datareader.GetString(sqlite_datareader.GetOrdinal("model"));
+            string dimension = sqlite_datareader.GetString(sqlite_datareader.GetOrdinal("dimension"));
+            string description = sqlite_datareader.GetString(sqlite_datareader.GetOrdinal("description"));
+            string energyConsump = sqlite_datareader.GetString(sqlite_datareader.GetOrdinal("energyConsumption"));
+            string monthlyFees = sqlite_datareader.GetString(sqlite_datareader.GetOrdinal("monthlyFees"));
+
+            new FormUpdateAppliance(this, applianceId, type, name, brand, model, dimension, description, energyConsump, monthlyFees).Show();
         }
 
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
@@ -133,6 +153,11 @@ namespace HomeRentalAppDotNet
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

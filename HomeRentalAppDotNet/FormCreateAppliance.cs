@@ -60,6 +60,7 @@ namespace HomeRentalAppDotNet
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            // load appliance type from db
             SQLiteConnection sqlite_conn = Program.sqlite_conn;
             SQLiteDataReader sqlite_datareader;
             SQLiteCommand sqlite_cmd;

@@ -87,7 +87,7 @@ namespace HomeRentalAppDotNet
             {
                 SQLiteConnection sqlite_conn = Program.sqlite_conn;
                 SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
-                sqlite_cmd.CommandText = $"INSERT INTO Orders (userId, applianceId, rentalPeriod, rentalPrice) VALUES({2}, {this.applianceId}, {txtRentalPeriod.Text}, {txtRentalPrice.Text});";
+                sqlite_cmd.CommandText = $"INSERT INTO Orders (userId, applianceId, rentalPeriod, rentalPrice) VALUES({Program.Session_UserId}, {this.applianceId}, {txtRentalPeriod.Text}, {txtRentalPrice.Text});";
                 int result = sqlite_cmd.ExecuteNonQuery();
                 if (result > 0)
                 {

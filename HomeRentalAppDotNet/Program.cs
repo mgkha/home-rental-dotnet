@@ -14,6 +14,7 @@ namespace HomeRentalAppDotNet
 
 
         public static SQLiteConnection sqlite_conn;
+        public static int Session_UserId;
 
         /// <summary>
         /// The main entry point for the application.
@@ -31,8 +32,6 @@ namespace HomeRentalAppDotNet
 
         static void CreateConnection()
         {
-
-
             // Create a new database connection:
             sqlite_conn = new SQLiteConnection("Data Source=D:\\database.db; Version = 3; Compress = True;");
             // Open the connection:
@@ -46,56 +45,6 @@ namespace HomeRentalAppDotNet
             }
         }
 
-        //static void CreateTable(SQLiteConnection conn)
-        //{
-
-        //    SQLiteCommand sqlite_cmd;
-        //    string Createsql = "CREATE TABLE SampleTable (Col1 VARCHAR(20), Col2 INT)";
-        //    string Createsql1 = "CREATE TABLE SampleTable1 (Col1 VARCHAR(20), Col2 INT)";
-        //    sqlite_cmd = conn.CreateCommand();
-        //    sqlite_cmd.CommandText = Createsql;
-        //    sqlite_cmd.ExecuteNonQuery();
-        //    sqlite_cmd.CommandText = Createsql1;
-        //    sqlite_cmd.ExecuteNonQuery();
-
-        //}
-
-        //static void InsertData(SQLiteConnection conn)
-        //{
-        //    SQLiteCommand sqlite_cmd;
-        //    sqlite_cmd = conn.CreateCommand();
-        //    sqlite_cmd.CommandText = "INSERT INTO SampleTable
-        //       (Col1, Col2) VALUES('Test Text ', 1); ";
-        //   sqlite_cmd.ExecuteNonQuery();
-        //    sqlite_cmd.CommandText = "INSERT INTO SampleTable
-        //       (Col1, Col2) VALUES('Test1 Text1 ', 2); ";
-        //   sqlite_cmd.ExecuteNonQuery();
-        //    sqlite_cmd.CommandText = "INSERT INTO SampleTable
-        //       (Col1, Col2) VALUES('Test2 Text2 ', 3); ";
-        //   sqlite_cmd.ExecuteNonQuery();
-
-
-        //    sqlite_cmd.CommandText = "INSERT INTO SampleTable1
-        //       (Col1, Col2) VALUES('Test3 Text3 ', 3); ";
-        //   sqlite_cmd.ExecuteNonQuery();
-
-        //}
-
-        //static void ReadData(SQLiteConnection conn)
-        //{
-        //    SQLiteDataReader sqlite_datareader;
-        //    SQLiteCommand sqlite_cmd;
-        //    sqlite_cmd = conn.CreateCommand();
-        //    sqlite_cmd.CommandText = "SELECT * FROM Appliances";
-
-        //    sqlite_datareader = sqlite_cmd.ExecuteReader();
-        //    while (sqlite_datareader.Read())
-        //    {
-        //        string myreader = sqlite_datareader.GetString(3);
-        //        Debug.WriteLine(myreader);
-
-        //    }
-        //    conn.Close();
-        //}
+        
     }
 }
